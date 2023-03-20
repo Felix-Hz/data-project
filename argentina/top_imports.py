@@ -21,7 +21,7 @@ def top_importadores(dfs):
 
             data = df[df['Importador'] == f"{company}"]
 
-            if (data['Kgs. Netos'].sum() > 15000):
+            if (data['Kgs. Netos'].sum() > 1500):
 
                 volumenTotalCompania = (data['Kgs. Netos'].sum()/1000).round(2)
 

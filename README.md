@@ -1,5 +1,3 @@
 # data-softrade-2022
 
-## Nuevo
-
-Analisis de importaciones y exportaciones usando Softrade, y Logcomex. 
+- Analisis de las importaciones del código arancelario `283525` de los últimos 10 años para Argentina, Brasil, Uruguay, Paraguay y más. 

@@ -29,4 +29,5 @@ def argy_wrangling(dfs):
 
         df = df.dropna()
 
-        print(f'Done with: {df["Fecha"][0].year}')
+        print(f'> Done with: {df["Fecha"][0].year}\n~~~~~~~~~~~~~~~~~~~')
+

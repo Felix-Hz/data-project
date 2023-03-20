@@ -20,7 +20,7 @@ def annual_data(dfs):
 
         # ACA VA EL RECORTE
 
-        print(f"> {df['Fecha'][4].year} appended.")
+        print(f"- {df['Fecha'][4].year} appended.")
 
     print("~~~~~~~~~~~~~~~~~~~\n> Transition dictionary:")
     for key, values in transition_dic.items():

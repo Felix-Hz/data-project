@@ -35,7 +35,7 @@ def top_importadores(dfs):
                 
                 company_dic['Participacion'].append(f"{round((volumenTotalCompania / volumenTotalImportacionTn) * 100)}%")
 
-                print(f"> Done with: {company} ({df['Fecha'][4].year}) ")
+                print(f"- Done with: {company} ({df['Fecha'][4].year}) ")
 
         transition_df = pd.DataFrame.from_records(company_dic)
         transition_df = transition_df.sort_values(by="Volumen Total (TN)", ascending=False)
@@ -44,6 +44,8 @@ def top_importadores(dfs):
         # print(transition_df)
 
         companies_df = companies_df.append(transition_df_head, ignore_index=False)
+
+    print("~~~~~~~~~~~~~~~~~~~\n> Current dataframe of the top 3 importers of each year:")
 
     
     return companies_df

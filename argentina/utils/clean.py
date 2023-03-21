@@ -1,7 +1,7 @@
 import pandas as pd
 
 
-def argy_wrangling(dfs):
+def wrangling(dfs):
 
     results_dfs = []
 

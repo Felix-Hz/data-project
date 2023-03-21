@@ -7,7 +7,7 @@ def analisis_origenes(dfs):
 
     for df in dfs:
 
-        volumenTotalImportacionTn = (df['Kgs. Netos'].sum()/1000).round(2)
+        volumenTotalImportacionTn = (df['Cantidad Comercial'].sum()/1000).round(2)
         
         registro_volumen = {
             "NCM": [],
@@ -22,17 +22,17 @@ def analisis_origenes(dfs):
 
             data = df[df['País de Origen'] == f"{pais}"]
 
-            volumenTotalOrigen = (data['Kgs. Netos'].sum()/1000).round(2)
+            volumenTotalOrigen = (data['Cantidad Comercial'].sum()/1000).round(2)
 
-            if (data['Kgs. Netos'].sum() > 1500):
+            if (data['Cantidad Comercial'].sum() > 5000):
 
-                registro_volumen['NCM'].append(''.join(df['NCM-SIM'].unique()))
+                registro_volumen['NCM'].append(''.join(df['Código SACH'].unique()))
                 registro_volumen['Año'].append(round((pd.DatetimeIndex(data["Fecha"].unique()))[0].year))
                 registro_volumen['Pais'].append(pais)
                 registro_volumen['No. Importaciones'].append(len(data))
-                registro_volumen['Volumen Total (TN)'].append((data['Kgs. Netos'].sum()/1000).round(2))
+                registro_volumen['Volumen Total (TN)'].append((data['Cantidad Comercial'].sum()/1000).round(2))
                 registro_volumen['Participacion en Vol. Total'].append(f"{round(( volumenTotalOrigen / volumenTotalImportacionTn) *100)}%")
-                print(f"- Done with: {pais} ({df['Fecha'][4].year}) ")
+                print(f"- Done with: {pais} ({df['Fecha'][0].year}) ")
             
         transition_df = pd.DataFrame.from_records(registro_volumen).sort_values('Volumen Total (TN)', ascending=False).reset_index(drop=True)
         transition_df = transition_df[['NCM', 'Año', 'Pais', 'Volumen Total (TN)', "Participacion en Vol. Total", 'No. Importaciones']]

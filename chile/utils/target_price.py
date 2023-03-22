@@ -56,12 +56,11 @@ def price_analysis(dfs, targets):
                     f"- Price analysis finished for: {target} ({df.iloc[0]['Fecha'].year}) ")
 
         transition_df = pd.DataFrame.from_records(price_dic)
-        transition_df_head = transition_df.head(3)
-        transition_df_head = transition_df_head[[
+        transition_df = transition_df[[
             'Importador', 'Año', 'Minimo', 'Cuartiles', 'Maximo', 'Mediana', 'Promedio']]
 
         prices_describe = prices_describe.append(
-            transition_df_head, ignore_index=False)
+            transition_df, ignore_index=False)
 
     print(
         f"~~~~~~~~~~~~~~~~~~~\n> Price analysis for {', '.join(targets)} in the last {len(dfs)-1} years:")

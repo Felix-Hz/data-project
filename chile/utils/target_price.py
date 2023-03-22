@@ -50,7 +50,7 @@ def price_analysis(dfs, targets):
                 price_dic['Mediana'].append(
                     (data['U$S Unitario'].median().round(2))*1000)
                 price_dic['Cuartiles'].append(
-                    f"Q1: {data['U$S Unitario'].quantile(0.25).round(2)*1000} | Q3: {data['U$S Unitario'].quantile().round(2)*1000}")
+                    f"Q1: {data['U$S Unitario'].quantile(0.25).round(2)*1000} | Q3: {data['U$S Unitario'].quantile(0.75).round(2)*1000}")
 
                 print(
                     f"- Price analysis finished for: {target} ({df.iloc[0]['Fecha'].year}) ")

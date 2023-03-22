@@ -69,10 +69,12 @@ def wrangling(dfs):
 
         dfs[i] = df
 
-        if not pd.isnull(df["Fecha"].iloc[0].year):
-            print(
-                f'> Done with: {df["Fecha"].iloc[0].year}\n~~~~~~~~~~~~~~~~~~~')
+        if df is not None and not df.empty:
+            if not pd.isnull(df["Fecha"].iloc[0].year):
+                print(
+                    f'> Done with: {df["Fecha"].iloc[0].year}\n~~~~~~~~~~~~~~~~~~~')
         else:
-            print(f'> No data for: {year_error_memory}\n~~~~~~~~~~~~~~~~~~~')
+            print(
+                f'> No data for: {year_error_memory}\n~~~~~~~~~~~~~~~~~~~')
 
     return results_dfs

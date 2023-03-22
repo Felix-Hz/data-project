@@ -46,7 +46,7 @@ def top_importadores(dfs):
                 company_dic['Importador'].append(company)
 
                 company_dic['Año'].append(
-                    round((pd.DatetimeIndex(data["Fecha"].unique()))[0].year))
+                    data["Fecha"].iloc[0].year)
 
                 company_dic['Precio Promedio'].append(
                     (data['U$S Unitario'].mean().round(2))*1000)

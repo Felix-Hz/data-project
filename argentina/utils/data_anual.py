@@ -23,15 +23,18 @@ def annual_data(dfs):
     }
 
     for df in dfs:
-        transition_dic['NCM'].append(''.join(df['NCM-SIM'].unique()))
 
-        transition_dic['Año'].append(df["Fecha"].iloc[0].year)
+        if df is not None and not df.empty:
 
-        volumenTotalImportacionTn = (df['Kgs. Netos'].sum()/1000).round(2)
+            transition_dic['NCM'].append(''.join(df['NCM-SIM'].unique()))
 
-        transition_dic['Volumen Total'].append(volumenTotalImportacionTn)
+            transition_dic['Año'].append(df["Fecha"].iloc[0].year)
 
-        print(f"- {df['Fecha'].iloc[0].year} appended.")
+            volumenTotalImportacionTn = (df['Kgs. Netos'].sum()/1000).round(2)
+
+            transition_dic['Volumen Total'].append(volumenTotalImportacionTn)
+
+            print(f"- {df['Fecha'].iloc[0].year} appended.")
 
     print("~~~~~~~~~~~~~~~~~~~\n> Transition dictionary:")
 

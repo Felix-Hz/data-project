@@ -14,8 +14,6 @@ def analisis_origenes(dfs):
 
     '''
 
-    global registro_volumen
-
     excel_new_data = pd.DataFrame()
 
     for df in dfs:

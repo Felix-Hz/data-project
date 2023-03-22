@@ -7,14 +7,15 @@ def price_analysis(dfs, targets):
     '''
             Analyze the price for selected targets that are representative in a given NCM.
 
-            Args:
-                - dfs: 
-                    Dataframes provided to filter the data.
-                - targets:
-                    Companies selected to be price representative. 
+                Args:
+                    - dfs: 
+                        Dataframes provided to filter the data.
+                    - targets:
+                        Companies selected to be price representative. 
 
-            Returns:
-                - Dataframe: Minimum, Maximum, Mean, Median and Quartile distribution of the Unitary U$S price throughout a given set of years. 
+                Returns:
+                    - Dataframe: Minimum, Maximum, Mean, Median and Quartile distribution of the 
+                    Unitary U$S price throughout a given set of years. 
 
     '''
 

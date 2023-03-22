@@ -1,4 +1,6 @@
 import pandas as pd
+import numpy as np
+from scipy import stats
 
 
 def price_analysis(dfs, targets):
@@ -36,6 +38,16 @@ def price_analysis(dfs, targets):
             if not df[df['Importador'] == f"{target}"].empty:
 
                 data = df[df['Importador'] == f"{target}"]
+
+                q1 = data['U$S Unitario'].quantile(0.25)
+                q3 = data['U$S Unitario'].quantile(0.75)
+                
+                interquartileRange = q3 - q1
+                lower_bound = q1 - 1.5 * interquartileRange
+                upper_bound = q3 + 1.5 * interquartileRange
+
+                outlier_indices = data[(data['U$S Unitario'] < lower_bound) | (data['U$S Unitario'] > upper_bound)].index
+                data = data.drop(outlier_indices)
 
                 price_dic['Importador'].append(target)
 

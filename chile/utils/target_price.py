@@ -43,7 +43,7 @@ def price_analysis(dfs, targets):
                 q3 = data['U$S Unitario'].quantile(0.75)
                 
                 interquartileRange = q3 - q1
-                # multiply iqr by outlier step (1.5) to determine the boundaries to filter the price with
+                # use outlier step (1.5) to determine the boundaries w/ iqr to filter the price with
                 lower_bound = q1 - 1.5 * interquartileRange
                 upper_bound = q3 + 1.5 * interquartileRange
 

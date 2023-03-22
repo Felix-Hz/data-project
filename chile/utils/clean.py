@@ -45,7 +45,7 @@ def wrangling(dfs):
 
         df = df.loc[df['U$S Unitario'] <= 1.2]
 
-        print("~ Limpiando outliers...")
+        print("~ Dropping outliers...")
         q1 = df['U$S Unitario'].quantile(0.25)
         q3 = df['U$S Unitario'].quantile(0.75)
 

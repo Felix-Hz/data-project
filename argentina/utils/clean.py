@@ -54,6 +54,7 @@ def wrangling(dfs):
         df = df.loc[df['U$S Unitario'] <= 1.2]
 
         print("~ Dropping outliers...")
+        
         q1 = df['U$S Unitario'].quantile(0.25)
         q3 = df['U$S Unitario'].quantile(0.75)
 
@@ -77,12 +78,10 @@ def wrangling(dfs):
 
         dfs[i] = df
 
-        if df is not None and not df.empty:
-            if not pd.isnull(df["Fecha"].iloc[0].year):
-                print(
-                    f'> Done with: {df["Fecha"].iloc[0].year}\n~~~~~~~~~~~~~~~~~~~')
-        else:
+        if df is not None and not df.empty and not pd.isnull(df["Fecha"].iloc[0].year):
             print(
-                f'> No data for: {year_error_memory}\n~~~~~~~~~~~~~~~~~~~')
+                f'> Done with: {df["Fecha"].iloc[0].year}\n~~~~~~~~~~~~~~~~~~~')
+        else:
+            print(f'> No data for: {year_error_memory}\n~~~~~~~~~~~~~~~~~~~')
 
     return results_dfs

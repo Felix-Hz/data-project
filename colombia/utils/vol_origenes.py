@@ -37,7 +37,7 @@ def analisis_origenes(dfs):
 
             if (data['Kgs. Netos'].sum() > 5000):
 
-                registro_volumen['NCM'].append(''.join(df['NCM-SIM'].unique()))
+                registro_volumen['NCM'].append(''.join(str(df['NANDINA'].unique().tolist())[1:-1]))
                 registro_volumen['Año'].append(
                     str(data["Fecha"].iloc[0].year)[:4])
                 registro_volumen['Pais'].append(pais)

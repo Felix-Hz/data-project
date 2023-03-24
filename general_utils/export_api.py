@@ -3,7 +3,7 @@ import gspread as gs
 
 CURRENT_WD = os.getcwd()
 COUNTRY_WD = (os.path.basename(CURRENT_WD).split('/')[-1]).upper()
-CREDENTIALS = '../service-credentials.json'
+CREDENTIALS = '../../service-credentials.json'
 
 
 def export_API(df):

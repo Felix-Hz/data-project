@@ -12,7 +12,7 @@ def export_API(df):
 
     worksheet_list = sh.worksheets()
 
-    print("__________________________ ~ EXPORT ~ __________________________\n")
+    print("\n__________________________ ~ EXPORT ~ __________________________\n")
     print(
         f"\033[1m> Las hojas del excel actualmente son:\033[0m\n\n {worksheet_list}\n\n- - - - - - - - - -\n")
     try:

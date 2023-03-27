@@ -29,6 +29,7 @@ def top_importadores(dfs):
 
         company_dic = {
             "Año": [],
+            "NCM": [],
             "Importador": [],
             "Proveedores": [],
             "Precio Promedio": [],
@@ -45,6 +46,9 @@ def top_importadores(dfs):
                 volumenTotalCompania = (data['Kgs. Netos'].sum()/1000).round(2)
 
                 company_dic['Importador'].append(company)
+
+                company_dic['NCM'].append(
+                    ''.join(df['NANDINA'].unique().astype(str).tolist()))
 
                 company_dic['Proveedores'].append(
                     ', '.join(data['Probable Proveedor'].unique().tolist()))

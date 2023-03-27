@@ -20,6 +20,7 @@ def wrangling(dfs):
     for i in range(len(dfs)):
         df = dfs[i]
         year_error_memory = df["Fecha"].iloc[0].year
+        ncm_error_memory = df['NCM-SIM'].iloc[0]
 
         df = df.loc[:, ['NCM-SIM', 'Fecha', 'Tipo de Dato',  'Importador', 'Localidad', 'Destinación', 'Aduana', 'Via Transporte', 'País de Origen',
                         'País de Procedencia', 'U$S Unitario', 'U$S FOB', 'Flete U$S', 'Seguro U$S', 'U$S CIF', 'Cantidad', 'Unidad de Medida', 'Kgs. Netos',
@@ -48,13 +49,18 @@ def wrangling(dfs):
 
         df["U$S Unitario"] = (
             df['U$S CIF'] / df['Kgs. Netos']).round(2)
+        
+            # elimino compañías especificas que pasan mi filtro
+        mask = df['Importador'].str.contains(
+        'YPF', case=False)
+        df = df[~mask]
 
         print("~ Creando columna de precio...")
 
         df = df.loc[df['U$S Unitario'] <= 1.2]
 
         print("~ Dropping outliers...")
-        
+
         q1 = df['U$S Unitario'].quantile(0.25)
         q3 = df['U$S Unitario'].quantile(0.75)
 
@@ -80,8 +86,9 @@ def wrangling(dfs):
 
         if df is not None and not df.empty and not pd.isnull(df["Fecha"].iloc[0].year):
             print(
-                f'> Done with: {df["Fecha"].iloc[0].year}\n~~~~~~~~~~~~~~~~~~~')
+                f'> Done with: {df["Fecha"].iloc[0].year} for the {df["NCM-SIM"].iloc[0]}\n~~~~~~~~~~~~~~~~~~~')
         else:
-            print(f'> No data for: {year_error_memory}\n~~~~~~~~~~~~~~~~~~~')
+            print(
+                f'> No data for: {ncm_error_memory} ({year_error_memory}) \n~~~~~~~~~~~~~~~~~~~')
 
     return results_dfs

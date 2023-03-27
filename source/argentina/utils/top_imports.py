@@ -29,6 +29,7 @@ def top_importadores(dfs):
 
         company_dic = {
             "Año": [],
+            "NCM": [],
             "Importador": [],
             "Precio Promedio": [],
             "Volumen Total (TN)": [],
@@ -46,7 +47,10 @@ def top_importadores(dfs):
                 company_dic['Importador'].append(company)
 
                 company_dic['Año'].append(
-                    data["Fecha"].iloc[0].year)
+                    str(data["Fecha"].iloc[0].year)[:4])
+
+                company_dic['NCM'].append(
+                    ''.join(df['NCM-SIM'].unique().astype(str).tolist()))
 
                 company_dic['Precio Promedio'].append(
                     (data['U$S Unitario'].mean().round(2))*1000)

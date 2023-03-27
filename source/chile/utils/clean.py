@@ -61,6 +61,11 @@ def wrangling(dfs):
             df['U$S Unitario'] > upper_bound)].index
         df = df.drop(outlier_indices)
 
+        # elimino compañías especificas que pasan mi filtro
+        mask = df['Importador'].str.contains(
+            'No disponible', case=False)
+        df = df[~mask]
+
         print("~ Dropping nulls...")
 
         df = df.dropna()

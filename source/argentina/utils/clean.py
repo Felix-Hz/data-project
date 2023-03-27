@@ -49,10 +49,10 @@ def wrangling(dfs):
 
         df["U$S Unitario"] = (
             df['U$S CIF'] / df['Kgs. Netos']).round(2)
-        
-            # elimino compañías especificas que pasan mi filtro
+
+        # elimino compañías especificas que pasan mi filtro
         mask = df['Importador'].str.contains(
-        'YPF', case=False)
+            'YPF', case=False)
         df = df[~mask]
 
         print("~ Creando columna de precio...")

@@ -30,6 +30,7 @@ def top_importadores(dfs):
 
         company_dic = {
             "Año": [],
+            "NCM": [],
             "Importador": [],
             "Precio Promedio": [],
             "Volumen Total (TN)": [],
@@ -46,6 +47,9 @@ def top_importadores(dfs):
                     data['Cantidad Comercial'].sum()/1000).round(2)
 
                 company_dic['Importador'].append(company)
+
+                company_dic['NCM'].append(
+                    ''.join(df['Código SACH'].unique().astype(str).tolist()))
 
                 company_dic['Año'].append(
                     round((pd.DatetimeIndex(data["Fecha"].unique()))[0].year))

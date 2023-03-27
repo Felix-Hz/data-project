@@ -21,9 +21,6 @@ def export_API(df):
         print(
             "Spreadsheet exists: Modifying existing working sheet...\n\n- - - - - - - - - -\n")
         # ws.clear()
-        df_values = df.values.tolist()
-        # sh.values_append(f'{COUNTRY_WD}', {'valueInputOption': 'RAW'}, {
-        #     'values': df_values})
         ws.append_rows([df.columns.values.tolist()] +
                        df.values.tolist())
         print("> Spreadsheet modified.\n")
@@ -33,7 +30,7 @@ def export_API(df):
         print("Spreadsheet doesn't exist: Creating the new worksheet...\n\n- - - - - - - - - -\n")
         sh.add_worksheet(title=f"{COUNTRY_WD}_draft", rows=100, cols=12)
         ws = sh.worksheet(f'{COUNTRY_WD}')
-        ws.update([df.columns.values.tolist()] +
-                  df.values.tolist())
+        ws.append_rows([df.columns.values.tolist()] +
+                       df.values.tolist())
         print("> Spreadsheet created.\n")
         print('_________________________________________________________________\n')

@@ -29,6 +29,7 @@ def top_importadores(dfs):
 
         company_dic = {
             "Año": [],
+            "NCM": [],
             "Importador": [],
             "Proveedores": [],
             "Precio Promedio": [],
@@ -43,6 +44,9 @@ def top_importadores(dfs):
             if (data['Kgs. Netos'].sum() > 1500):
 
                 volumenTotalCompania = (data['Kgs. Netos'].sum()/1000).round(2)
+
+                company_dic['NCM'].append(
+                    ''.join(df['NANDINA'].unique().astype(str).tolist()))
 
                 company_dic['Importador'].append(company)
 
@@ -60,7 +64,8 @@ def top_importadores(dfs):
                 company_dic['Participacion'].append(
                     f"{round((volumenTotalCompania / volumenTotalImportacionTn) * 100)}%")
 
-                print(f"- Done with: {company} ({df['Fecha'].iloc[0].year}) ")
+                print(
+                    f"- Done with: {company} - {data['NANDINA'].iloc[0]} ({data['Fecha'].iloc[0].year}) ")
 
         transition_df = pd.DataFrame.from_records(company_dic)
         transition_df = transition_df.sort_values(

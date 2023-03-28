@@ -25,7 +25,7 @@ def wrangling(dfs):
 
         df = df.loc[:, ['NANDINA', 'Fecha', 'Importador', 'Proveedor', 'País de Origen', 'País de Embarque', 'Aduana', 'Provincia', 'Transporte', 'Transportista',
                         'U$S CIF', 'CIF Unitario', 'U$S FOB', 'FOB Unitario', 'Flete', 'Seguro', 'Kgs. Netos', 'Cantidad', 'Unidad', 'Marca', 'Modelo de Mercadería', 'Característica', "Descripción Comercial"]]
-        
+
         # KeyError: "['País de Embarque', 'Provincia', 'Transporte', 'Transportista', 'U$S FOB', 'FOB Unitario', 'Flete', 'Seguro', 'Unidad', 'Modelo de Mercadería', 'Característica'] not in index"
 
         # Se eliminan registros que vengan por aire
@@ -54,7 +54,10 @@ def wrangling(dfs):
 
         # Estandarizo los valores del NCM
 
-        df['NANDINA'] = df.loc[:, 'NANDINA'] = 283525
+        df['NANDINA'] = df['NANDINA'].astype(str).str.replace('.', '')
+        df['NANDINA'] = df['NANDINA'].astype(
+            str).str.replace('[a-zA-Z]', '')
+        df['NANDINA'] = df['NANDINA'].astype(str).str[:6]
 
         df["U$S Unitario"] = (
             df['U$S CIF'] / df['Kgs. Netos']).round(2)

@@ -52,7 +52,10 @@ def wrangling_historical_data(dfs):
 
         # Estandarizo los valores del NCM
 
-        df['NANDINA'] = df.loc[:, 'NANDINA'] = 283525
+        df['NANDINA'] = df['NANDINA'].astype(str).str.replace('.', '')
+        df['NANDINA'] = df['NANDINA'].astype(
+            str).str.replace('[a-zA-Z]', '')
+        df['NANDINA'] = df['NANDINA'].astype(str).str[:6]
 
         df["U$S Unitario"] = (
             df['U$S CIF'] / df['Kgs. Netos']).round(2)

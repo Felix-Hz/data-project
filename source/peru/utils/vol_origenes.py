@@ -35,9 +35,9 @@ def analisis_origenes(dfs):
 
             volumenTotalOrigen = (data['Kgs. Netos'].sum()/1000).round(2)
 
-            if (data['Kgs. Netos'].sum() > 5000):
+            if (data['Kgs. Netos'].sum() > 100000):
 
-                registro_volumen['NCM'].append(''.join(str(df['Código NCM'].unique().tolist())[1:-1]))
+                registro_volumen['NCM'].append(''.join(df['Código NCM'].unique().astype(str).tolist()))
                 registro_volumen['Año'].append(
                     str(data["Fecha"].iloc[0].year)[:4])
                 registro_volumen['Pais'].append(pais)
@@ -46,7 +46,7 @@ def analisis_origenes(dfs):
                     (data['Kgs. Netos'].sum()/1000).round(2))
                 registro_volumen['Participacion en Vol. Total'].append(
                     f"{round(( volumenTotalOrigen / volumenTotalImportacionTn) *100)}%")
-                print(f"- Done with: {pais} ({df['Fecha'].iloc[0].year}) ")
+                print(f"- Done with: {pais} in {df['Código NCM'].iloc[0]} ({df['Fecha'].iloc[0].year}) ")
 
         transition_df = pd.DataFrame.from_records(registro_volumen).sort_values(
             'Volumen Total (TN)', ascending=False).reset_index(drop=True)

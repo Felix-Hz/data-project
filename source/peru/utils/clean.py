@@ -52,7 +52,10 @@ def wrangling(dfs):
 
         # Estandarizo los valores del NCM
 
-        df['Código NCM'] = df.loc[:, 'Código NCM'] = 283525
+        df['Código NCM'] = df['Código NCM'].astype(str).str.replace('.', '')
+        df['Código NCM'] = df['Código NCM'].astype(
+            str).str.replace('[a-zA-Z]', '')
+        df['Código NCM'] = df['Código NCM'].astype(str).str[:6]
 
         df["U$S Unitario"] = (
             df['U$S CIF'] / df['Kgs. Netos']).round(2)

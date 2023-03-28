@@ -34,7 +34,7 @@ def annual_data(dfs):
 
             transition_dic['Volumen Total'].append(volumenTotalImportacionTn)
 
-            print(f"- {df['Fecha'].iloc[0].year} appended.")
+            print(f"- {df['Código NCM'].iloc[0]} ({df['Fecha'].iloc[0].year}) appended.")
 
     print("~~~~~~~~~~~~~~~~~~~\n> Transition dictionary:")
 

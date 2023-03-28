@@ -60,7 +60,7 @@ def top_importadores(dfs):
                 company_dic['Participacion'].append(
                     f"{round((volumenTotalCompania / volumenTotalImportacionTn) * 100)}%")
 
-                print(f"- Done with: {company} ({df['Fecha'].iloc[0].year}) ")
+                print(f"- Done with: {company} ({df['Fecha'].iloc[0].year}) for {df['NCM-SIM'].iloc[0]}")
 
         transition_df = pd.DataFrame.from_records(company_dic)
         transition_df = transition_df.sort_values(

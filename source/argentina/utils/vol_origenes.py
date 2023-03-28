@@ -46,7 +46,7 @@ def analisis_origenes(dfs):
                     (data['Kgs. Netos'].sum()/1000).round(2))
                 registro_volumen['Participacion en Vol. Total'].append(
                     f"{round(( volumenTotalOrigen / volumenTotalImportacionTn) *100)}%")
-                print(f"- Done with: {pais} ({df['Fecha'].iloc[0].year}) ")
+                print(f"- Done with: {pais} ({df['Fecha'].iloc[0].year}) for the {df['NCM-SIM'].iloc[0]}")
 
         transition_df = pd.DataFrame.from_records(registro_volumen).sort_values(
             'Volumen Total (TN)', ascending=False).reset_index(drop=True)

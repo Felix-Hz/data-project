@@ -18,6 +18,8 @@ def wrangling(df):
     print(f"\n> MUNGING CURRENT DATA:\n")
 
     year_error_memory = df["Fecha"].iloc[0].year
+    year = df["Fecha"].iloc[0].year
+    ncm = df["NANDINA"].iloc[0]
 
     df = df.loc[:, ['NANDINA', 'Fecha', 'País de Origen', 'País de Procedencia', 'Probable Importador', 'Probable Proveedor', 'Aduana', 'Transporte',
                     'País de Compra', 'U$S CIF', 'CIF Unitario', 'U$S FOB', 'FOB Unitario', 'Flete', 'Seguro', 'Kgs. Netos', 'Kgs. Brutos', 'Cantidad', 'Unidad']]
@@ -70,8 +72,9 @@ def wrangling(df):
 
     if df is not None and not df.empty and not pd.isnull(df["Fecha"].iloc[0].year):
         print(
-            f'> Done with: {df["Fecha"].iloc[0].year}\n~~~~~~~~~~~~~~~~~~~')
+            f'> Done with: {ncm} ({year})\n~~~~~~~~~~~~~~~~~~~')
     else:
-        print(f'> No data for: {year_error_memory}\n~~~~~~~~~~~~~~~~~~~')
+        print(
+            f'> No data for: {ncm} ({year_error_memory})\n~~~~~~~~~~~~~~~~~~~')
 
     return df

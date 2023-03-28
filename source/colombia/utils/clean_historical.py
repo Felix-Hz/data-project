@@ -21,6 +21,11 @@ def wrangling_historical_data(dfs):
 
     for i in range(len(dfs)):
         df = dfs[i]
+
+        year_error_memory = df["Fecha"].iloc[0].year
+        year = df["Fecha"].iloc[0].year
+        ncm = df["NANDINA"].iloc[0]
+
         year_error_memory = df["Fecha"].iloc[0].year
 
         df = df.loc[:, ['NANDINA', 'Fecha', 'País de Origen', 'Pais de Procedencia', 'Probable Importador', 'Probable Proveedor', 'Aduana', 'Vía Transporte',
@@ -78,10 +83,11 @@ def wrangling_historical_data(dfs):
 
         dfs[i] = df
 
-        if df is not None and not df.empty and not pd.isnull(df["Fecha"].iloc[0].year):
-            print(
-                f'> Done with: {df["Fecha"].iloc[0].year}\n~~~~~~~~~~~~~~~~~~~')
-        else:
-            print(f'> No data for: {year_error_memory}\n~~~~~~~~~~~~~~~~~~~')
+    if df is not None and not df.empty and not pd.isnull(df["Fecha"].iloc[0].year):
+        print(
+            f'> Done with: {ncm} ({year})\n~~~~~~~~~~~~~~~~~~~')
+    else:
+        print(
+            f'> No data for: {ncm} ({year_error_memory})\n~~~~~~~~~~~~~~~~~~~')
 
     return results_dfs

@@ -4,7 +4,7 @@ import pandas as pd
 def analisis_origenes(dfs):
     '''
 
-        Analyses the origin of imported goods over multiple years for given datasets.
+        Analyses the origin of imported goods over multiple years for given datasets. Filtering each specific NCMs following different industry requirements.
 
             Parameters:
                 - dfs (list): A list of pandas DataFrames containing data on imported goods.
@@ -82,6 +82,23 @@ def analisis_origenes(dfs):
                     registro_volumen['Participacion en Vol. Total'].append(
                         f"{round(( volumenTotalOrigen / volumenTotalImportacionTn) *100)}%")
                     print(f"- Done with: {pais} ({df['Fecha'].iloc[0].year}) ")
+
+            elif (data['NANDINA'] == '283526').any():
+
+                if (data['Kgs. Netos'].sum() > 50000):
+
+                    registro_volumen['NCM'].append(
+                        ''.join(df['NANDINA'].unique().astype(str).tolist()))
+                    registro_volumen['Año'].append(
+                        str(data["Fecha"].iloc[0].year)[:4])
+                    registro_volumen['Pais'].append(pais)
+                    registro_volumen['No. Importaciones'].append(len(data))
+                    registro_volumen['Volumen Total (TN)'].append(
+                        (data['Kgs. Netos'].sum()/1000).round(2))
+                    registro_volumen['Participacion en Vol. Total'].append(
+                        f"{round(( volumenTotalOrigen / volumenTotalImportacionTn) *100)}%")
+                    print(
+                        f"- Done with: {pais} in {df['NANDINA'].iloc[0]} ({df['Fecha'].iloc[0].year}) ")
 
         transition_df = pd.DataFrame.from_records(registro_volumen).sort_values(
             'Volumen Total (TN)', ascending=False).reset_index(drop=True)

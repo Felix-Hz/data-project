@@ -37,7 +37,7 @@ def analisis_origenes(dfs):
             volumenTotalOrigen = (
                 data['Cantidad Comercial'].sum()/1000).round(2)
 
-            if (data['Cantidad Comercial'].sum() > 50000):
+            if (data['Cantidad Comercial'].sum() > 150000):
 
                 registro_volumen['NCM'].append(
                     ''.join(df['Código SACH'].unique()))

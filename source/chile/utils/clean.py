@@ -63,7 +63,7 @@ def wrangling(dfs):
 
         # elimino compañías especificas que pasan mi filtro
         mask = df['Importador'].str.contains(
-            'No disponible', case=False)
+            'No disponible|NO DETER', case=False)
         df = df[~mask]
 
         print("~ Dropping nulls...")
@@ -78,7 +78,7 @@ def wrangling(dfs):
 
         if df is not None and not df.empty and not pd.isnull(df["Fecha"].iloc[0].year):
             print(
-                f'> Done with: {df["Fecha"].iloc[0].year}\n~~~~~~~~~~~~~~~~~~~')
+                f'> Done with: {df["Código SACH"].iloc[0]} ({df["Fecha"].iloc[0].year})\n~~~~~~~~~~~~~~~~~~~')
         else:
             print(f'> No data for: {year_error_memory}\n~~~~~~~~~~~~~~~~~~~')
 

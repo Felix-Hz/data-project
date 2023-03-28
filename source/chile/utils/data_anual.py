@@ -22,17 +22,34 @@ def annual_data(dfs):
         "Volumen Total": []
     }
 
+    last_iterated_year = None
+    last_iterated_ncm = None
+
     for df in dfs:
-        transition_dic['NCM'].append(''.join(df['Código SACH'].unique()))
 
-        transition_dic['Año'].append(df["Fecha"].iloc[0].year)
+        if df is not None and not df.empty and not pd.isnull(df["Fecha"].iloc[0].year):
 
-        volumenTotalImportacionTn = (
-            df['Cantidad Comercial'].sum()/1000).round(2)
+            year = df['Fecha'].iloc[0].year
 
-        transition_dic['Volumen Total'].append(volumenTotalImportacionTn)
+            transition_dic['NCM'].append(
+                ''.join(df['Código SACH'].unique()))
 
-        print(f"- {df['Fecha'].iloc[0].year} appended.")
+            transition_dic['Año'].append(df["Fecha"].iloc[0].year)
+
+            volumenTotalImportacionTn = (
+                df['Cantidad Comercial'].sum()/1000).round(2)
+
+            transition_dic['Volumen Total'].append(
+                volumenTotalImportacionTn)
+
+            last_iterated_year = year
+            last_iterated_ncm = df['Código SACH'].iloc[0]
+
+            print(f"- {last_iterated_ncm} ({last_iterated_year}) appended.")
+
+        else:
+            print(
+                f"> Well, it seems there's no data for {last_iterated_ncm} ({last_iterated_year+1}). I'm sorry.")
 
     print("~~~~~~~~~~~~~~~~~~~\n> Transition dictionary:")
 

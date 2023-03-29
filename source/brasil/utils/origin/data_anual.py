@@ -19,24 +19,27 @@ def annual_data(dfs):
     transition_dic = {
         "NCM": [],
         "Año": [],
-        "Volumen Total": []
+        "Volumen Total Bruto (TN)": []
     }
 
     for df in dfs:
 
         if df is not None and not df.empty:
 
-            transition_dic['NCM'].append(''.join(df['NCM'].unique().astype(str).tolist()))
+            transition_dic['NCM'].append(
+                ''.join(df['Código NCM'].unique().astype(str).tolist()))
 
             transition_dic['Año'].append(df["Fecha"].iloc[0].year)
 
-            volumenTotalImportacionTn = (df['Net weight'].sum()/1000).round(2)
+            volumenTotalImportacionTn = (df['Kgs. Brutos'].sum()/1000).round(2)
 
-            transition_dic['Volumen Total'].append(volumenTotalImportacionTn)
+            transition_dic['Volumen Total Bruto (TN)'].append(
+                volumenTotalImportacionTn)
 
-            print(f"- {df['Fecha'].iloc[0].year} appended.")
+            print(
+                f"- {df['Código NCM'].iloc[0]} ({df['Fecha'].iloc[0].year}) appended.")
 
-    print("~~~~~~~~~~~~~~~~~~~\n> Transition dictionary:")
+    print(f"- - - - - - - - - - - - - - - - - - -\n> Dictionary:\n")
 
     for key, values in transition_dic.items():
         print(f"- {key}: {values}\n")

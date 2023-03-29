@@ -22,59 +22,45 @@ def wrangling(dfs):
 
     for i in range(len(dfs)):
         df = dfs[i]
-        year_error_memory = str(df['YEAR/MONTH'].iloc[0])[:4]
+        year_error_memory = str(df['Fecha'].iloc[0])[3:]
+        ncm = (df['Código NCM'].iloc[0].replace('.', ''))[:6]
 
-        df = df.loc[:, ['ORIGIN COUNTRY', 'YEAR/MONTH', 'Net weight', 'UNIT CIF VALUE', 'Acquisition country', 'Product description', 'POSSIBLE CONSIGNEE',
-                        'POSSIBLE SHIPPER', 'NCM',  'MODAL', 'TOTAL FOB ESTIMATED VALUE', 'CNPJ > Brazilian Company ID', 'TOTAL CIF VALUE', 'Measure Unit']]
-
-        # Se eliminan registros que vengan por aire
-        subset = df['MODAL']
-        df = df[subset != 'AEREA']
+        df = df.loc[:, ['Operación', 'Fecha', 'Código NCM', 'País de Origen', 'Puerto', 'Estado', 'Unitario FOB',
+                        'U$S FOB', 'Cantidad Comercial', 'Unidad de Medida', 'Kgs. Brutos', 'Descripción de Mercadería']]
 
         print("~ Limpiando NCMs...")
 
         # Estandarizo los valores del NCM
-        df['NCM'] = df['NCM'].astype(str).str.replace('.', '')
-        df['NCM'] = df['NCM'].astype(str).str[:6]
+        df['Código NCM'] = df['Código NCM'].astype(str).str.replace('.', '')
+        df['Código NCM'] = df['Código NCM'].astype(str).str[:6]
 
         print("~ Creando columna de precio...")
 
-        df['U$S Unitario'] = np.nan  # initialize the column with NaN values
-        df.loc[df['UNIT CIF VALUE'] <= 1.4,
-               'U$S Unitario'] = df.loc[df['UNIT CIF VALUE'] <= 1.4, 'UNIT CIF VALUE']
+        # initialize the column with NaN values
+        df['U$S FOB Unitario'] = np.nan
+        df["U$S FOB Unitario"] = (df['U$S FOB'] /
+                                  df['Kgs. Brutos']).round(2)
 
-        print("~ Dropping outliers...")
-
-        q1 = df['U$S Unitario'].quantile(0.25)
-        q3 = df['U$S Unitario'].quantile(0.75)
-
-        interquartileRange = q3 - q1
-        # use outlier step (1.5) to determine the boundaries w/ iqr to filter the price with
-        lower_bound = q1 - 1.5 * interquartileRange
-        upper_bound = q3 + 1.5 * interquartileRange
-
-        # drop outliers
-        outlier_indices = df[(df['U$S Unitario'] < lower_bound) | (
-            df['U$S Unitario'] > upper_bound)].index
-        df = df.drop(outlier_indices)
+        if (df['Código NCM'].iloc[0] == "283525"):
+            df.loc[df['U$S FOB Unitario'] >= 1.0, "U$S FOB Unitario"] = np.nan
+        elif (df['Código NCM'].iloc[0] == "283526"):
+            df.loc[df['U$S FOB Unitario'] >= 1.4, "U$S FOB Unitario"] = np.nan
 
         print("~ Dropping nulls...")
 
-        df['Acquisition country'].fillna('N/D', inplace=True)
-        df['U$S Unitario'].fillna(
-            df['TOTAL CIF VALUE'] / df['Net weight'], inplace=True)
-        df.dropna(subset=['POSSIBLE CONSIGNEE'], inplace=True)
+        df['País de Origen'].fillna('N/D', inplace=True)
 
-        df['Fecha'] = pd.to_datetime(df['YEAR/MONTH'], format='%Y%m')
+        df.dropna(inplace=True)
+
+        df['Fecha'] = pd.to_datetime(df['Fecha'], format='%m/%Y')
 
         results_dfs.append(df)
 
-        dfs[i] = df
-
         if df is not None and not df.empty and not pd.isnull(df["Fecha"].iloc[0].year):
             print(
-                f'> Done with: {df["Fecha"].iloc[0].year}\n~~~~~~~~~~~~~~~~~~~')
+                f'> Done with: {ncm} ({year_error_memory})\n~~~~~~~~~~~~~~~~~~~')
         else:
-            print(f'> No data for: {year_error_memory}\n~~~~~~~~~~~~~~~~~~~')
+            print(
+                f'> No data for: {ncm} ({year_error_memory})\n~~~~~~~~~~~~~~~~~~~')
 
     return results_dfs

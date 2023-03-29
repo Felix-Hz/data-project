@@ -24,10 +24,9 @@ def compare_cols(dfs):
         if set(df.columns) != common_columns_set:
             print("> The dataframes do not have the same columns.\n")
             # Find unique columns for each dataframe
-            for i, df in enumerate(dfs):
-                unique_columns_set = all_columns_set - set(df.columns)
-                print(
-                    f"~ Unique columns in dataframe {i}: {unique_columns_set}")
+            unique_columns_set = all_columns_set - set(df.columns)
+            print(
+                f"~ Unique columns in dataframe: {unique_columns_set}")
             break
     else:
         print("> The dataframes have the same columns.\n\n")

@@ -16,7 +16,7 @@ def export_API(df):
     print(
         f"\033[1m> Las hojas del excel actualmente son:\033[0m\n\n {worksheet_list}\n\n- - - - - - - - - -\n")
     try:
-        ws = sh.worksheet(f'{COUNTRY_WD}_draft')
+        ws = sh.worksheet(f'{COUNTRY_WD}')
         # Code if spreadsheet exists:
         print(
             "Spreadsheet exists: Modifying existing working sheet...\n\n- - - - - - - - - -\n")
@@ -28,7 +28,7 @@ def export_API(df):
     except gs.exceptions.WorksheetNotFound:
         # Code if spreadsheet doesn't exist:
         print("Spreadsheet doesn't exist: Creating the new worksheet...\n\n- - - - - - - - - -\n")
-        sh.add_worksheet(title=f"{COUNTRY_WD}_draft", rows=100, cols=12)
+        sh.add_worksheet(title=f"{COUNTRY_WD}", rows=100, cols=12)
         ws = sh.worksheet(f'{COUNTRY_WD}')
         ws.append_rows([df.columns.values.tolist()] +
                        df.values.tolist())

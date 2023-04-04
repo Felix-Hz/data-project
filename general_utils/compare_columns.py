@@ -2,15 +2,24 @@
 def compare_cols(dfs):
     '''
 
-        Compare a list of DataFrames to see if they differ in any column. Case they do, provide a list of the
-        unique columns that each different DataFrame has. 
+        Compare a list of DataFrames to identify any columns that are unique to one or more DataFrames:
 
             Args:
-                - dfs (list): A list of dataframes to be compared.
+                dfs (list): A list of pandas DataFrames to be compared.
 
             Returns:
-                - None: Prints output that provides valuable information about the DataFrame. 
+                None: Prints output that provides valuable information about the DataFrame.
 
+                This function takes a list of pandas DataFrames and checks whether they have the same columns. If they have the same columns, it prints a message indicating that 
+                all DataFrames have the same columns. If the DataFrames have different columns, it prints a message indicating that they do not have the same columns, and lists the 
+                unique columns for each DataFrame that has them.
+
+                For example, if dfs contains three DataFrames, and the first and second have columns A, B, and C, while the third has columns A, C, and D, the function will print a 
+                message stating that the DataFrames do not have the same columns, and then list the unique columns for each DataFrame:
+
+                    > The dataframes do not have the same columns.
+                    > Unique columns in dataframe 0: {'D'}
+                    > Unique columns in dataframe 2: {'B'}
 
     '''
 

@@ -7,6 +7,20 @@ CREDENTIALS = '../../service-credentials.json'
 
 
 def export_API(df):
+    '''
+        Export a DataFrame to a Google Sheet:
+
+        This function checks if a sheet for the DataFrame's country exists. If it does, the function appends the new data to the existing sheet. 
+        If the sheet doesn't exist, the function creates one, naming the sheet after the directory where the DataFrame is located. Note that this 
+        function requires personal credentials from Google Cloud Services to be passed in.
+
+                Args:
+                    - df (pandas DataFrame): the DataFrame to be exported to Google Sheets.
+
+                Returns:
+                    - None: this function does not return anything, but exports the DataFrame to a Google Sheet.
+    '''
+
     gc = gs.service_account(filename=CREDENTIALS)
     sh = gc.open('SouthAmerica_10years')
 
